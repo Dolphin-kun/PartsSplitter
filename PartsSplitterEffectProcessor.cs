@@ -66,6 +66,12 @@ namespace PartsSplitter
 
             using var mat = BitmapToMat.BitmapToOpenCvMat(dc, target);
 
+            if (mat.Empty())
+            {
+                wrap.SetInput(0, input, true);
+                return effectDescription.DrawDescription;
+            }
+
             using var gray = new Mat();
             using var binary = new Mat();
             Cv2.CvtColor(mat, gray, ColorConversionCodes.BGRA2GRAY);
