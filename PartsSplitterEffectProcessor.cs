@@ -1,5 +1,4 @@
 ﻿using OpenCvSharp;
-using System.Diagnostics;
 using System.Numerics;
 using Vortice.DCommon;
 using Vortice.Direct2D1;
@@ -66,6 +65,12 @@ namespace PartsSplitter
             dc.Target = null;
 
             using var mat = BitmapToMat.BitmapToOpenCvMat(dc, target);
+
+            if (mat.Empty())
+            {
+                wrap.SetInput(0, input, true);
+                return effectDescription.DrawDescription;
+            }
 
             using var gray = new Mat();
             using var binary = new Mat();
