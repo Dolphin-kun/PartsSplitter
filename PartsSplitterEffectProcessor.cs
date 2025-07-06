@@ -87,24 +87,48 @@ namespace PartsSplitter
 
             if (!string.IsNullOrWhiteSpace(item.SortNum))
             {
-                var groupStrings = item.SortNum.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                var normalizedString = item.SortNum.Replace('.', ',');
+                var groupStrings = normalizedString.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var group in groupStrings)
                 {
-                    var groupList = new List<int>();
-
+                    var groupSet = new HashSet<int>();
                     var elements = group.Split('-', StringSplitOptions.RemoveEmptyEntries);
 
                     foreach (var elem in elements)
                     {
-                        if (int.TryParse(elem, out int num) && num >= 1 && num < numLabels)
+                        if (elem.Contains('~'))
                         {
-                            groupList.Add(num);
+                            var rangeParts = elem.Split('~');
+                            if (rangeParts.Length == 2 &&
+                                int.TryParse(rangeParts[0], out int start) &&
+                                int.TryParse(rangeParts[1], out int end))
+                            {
+                                if (start > end)
+                                {
+                                    (start, end) = (end, start);
+                                }
+
+                                for (int i = start; i <= end; i++)
+                                {
+                                    if (i >= 1 && i < numLabels)
+                                    {
+                                        groupSet.Add(i);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (int.TryParse(elem, out int num) && num >= 1 && num < numLabels)
+                            {
+                                groupSet.Add(num);
+                            }
                         }
                     }
 
-                    if (groupList.Count > 0)
-                        labelGroups.Add(groupList);
+                    if (groupSet.Count > 0)
+                        labelGroups.Add([.. groupSet]);
                 }
             }
 
