@@ -2,6 +2,10 @@
 
 ### [最新バージョンをダウンロード](https://github.com/Dolphin-kun/PartsSplitter/releases/latest)
 
+> [!NOTE]
+てとらさんによる上位互換がリリースされました  
+[パーツ分解てとら](https://github.com/tetra-te/PartsSplitTetra)
+
 ## 概要
 テキストや画像をパーツに分解する映像エフェクトです。  
 テキストの分解や、立ち絵のバラシにも使えるかと思います。
