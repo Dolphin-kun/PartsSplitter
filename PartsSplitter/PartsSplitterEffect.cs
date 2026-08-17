@@ -9,7 +9,7 @@ using YukkuriMovieMaker.Plugin.Effects;
 
 namespace PartsSplitter
 {
-    [VideoEffect("パーツ分解", ["加工"], ["Parts Splitter", "パーツ分解"], isAviUtlSupported: false)]
+    [VideoEffect("パーツ分解", [VideoEffectCategories.Decoration], ["Parts Splitter", "パーツ分解"], isAviUtlSupported: false)]
     public class PartsSplitterEffect : VideoEffectBase
     {
         public override string Label => "パーツ分解";
